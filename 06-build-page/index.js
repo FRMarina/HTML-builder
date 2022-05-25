@@ -39,12 +39,12 @@ fs.readdir(path.join(__dirname, 'assets'), {withFileTypes: true}, (err, array)=>
 
 const { mkdir, rm, readFile, readdir, copyFile } = require('fs/promises');
    async function addInIndex(){      
-        let rwTemplate = await readFile(path.join(__dirname,  'template.html'), 'utf-8'); //строка-шаблон
-         const rdCpmonents = await readdir(path.join(__dirname, "components"), {withFileTypes: true}); //массив дирентов
+        let rwTemplate = await readFile(path.join(__dirname,  'template.html'), 'utf-8');
+         const rdCpmonents = await readdir(path.join(__dirname, "components"), {withFileTypes: true});
            for(let i = 0; i < rdCpmonents.length; i++){
-                const pathFile = path.join(__dirname, 'components', `${rdCpmonents[i].name}`);//пути к файлам папки компоненты
-                const {name} = path.parse(`${rdCpmonents[i].name}`); //деструктур.присв имени файла компонента
-                const dataFile = await readFile(pathFile, 'utf-8'); //данные из файлов header.html, articles.html и footer.html
+                const pathFile = path.join(__dirname, 'components', `${rdCpmonents[i].name}`);
+                const {name} = path.parse(`${rdCpmonents[i].name}`);
+                const dataFile = await readFile(pathFile, 'utf-8');
                 const subsStr =`{{${name}}}`;
                 rwTemplate = rwTemplate.replace(subsStr, dataFile);
            }
